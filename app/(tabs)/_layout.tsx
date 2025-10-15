@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function TabLayout() {
   const insets = useSafeAreaInsets();
-  
+
   return (
     <Tabs
       screenOptions={{
@@ -14,15 +14,21 @@ export default function TabLayout() {
           backgroundColor: "#ffffff",
           borderTopWidth: 1,
           borderTopColor: "#e5e7eb", // gray-200
-          paddingBottom: insets.bottom + 8,
-          paddingTop: 8,
           height: 60 + insets.bottom,
         },
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: "500",
         },
-        headerShown: false,
+        headerShown: true,
+        headerTitle: "Infomovia",
+        headerStyle: {
+          backgroundColor: "#3b82f6", // blue-500
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold",
+        },
       }}
     >
       <Tabs.Screen
@@ -58,6 +64,15 @@ export default function TabLayout() {
           title: "About",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="information-circle" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="settings"
+        options={{
+          title: "Settings",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="settings" size={size} color={color} />
           ),
         }}
       />
