@@ -1,5 +1,5 @@
-import { SafeAreaView, Text, View } from "react-native";
-import "./globals.css";
+import { Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function App() {
   return (

@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "infomovia-native",
-    "slug": "infomovia-native",
+    "name": "infomovia-app",
+    "slug": "infomovia-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "infomovianative",
+    "scheme": "infomoviaapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -13,7 +13,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
+        "backgroundColor": "#03e3fd",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
@@ -24,7 +24,15 @@
     "web": {
       "output": "static",
       "favicon": "./assets/images/favicon.png",
-      "bundler": "metro"
+      "bundler": "metro",
+      "icons": {
+        "android-chrome-192x192": "./assets/images/android-chrome-192x192.png",
+        "android-chrome-512x512": "./assets/images/android-chrome-512x512.png",
+        "apple-touch-icon": "./assets/images/apple-touch-icon.png",
+        "favicon-16x16": "./assets/images/favicon-16x16.png",
+        "favicon-32x32": "./assets/images/favicon-32x32.png",
+        "favicon-ico": "./assets/images/favicon.ico"
+      }
     },
     "plugins": [
       "expo-router",
