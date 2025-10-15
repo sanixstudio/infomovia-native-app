@@ -21,7 +21,7 @@ export default function TabLayout() {
           fontWeight: "500",
         },
         headerShown: true,
-        headerTitle: "Infomovia",
+        // headerTitle: "Infomovia",
         headerStyle: {
           backgroundColor: "#3b82f6", // blue-500
         },
