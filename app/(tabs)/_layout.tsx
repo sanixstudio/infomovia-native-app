@@ -8,8 +8,8 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "#3b82f6", // blue-500
-        tabBarInactiveTintColor: "#6b7280", // gray-500
+        tabBarActiveTintColor: "#006d77", // theme-dark
+        tabBarInactiveTintColor: "#83c5be", // theme-medium
         tabBarStyle: {
           backgroundColor: "#ffffff",
           borderTopWidth: 1,
@@ -23,7 +23,7 @@ export default function TabLayout() {
         headerShown: true,
         // headerTitle: "Infomovia",
         headerStyle: {
-          backgroundColor: "#3b82f6", // blue-500
+          backgroundColor: "#006d77", // theme-dark
         },
         headerTintColor: "#fff",
         headerTitleStyle: {
