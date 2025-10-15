@@ -1,11 +1,11 @@
 import { View } from "react-native";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+// import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 
 export default function SearchScreen() {
   return (
     <View className="flex-1 bg-white">
       <View className="flex-1">
-        <MapView
+        {/* <MapView
           style={{ flex: 1 }}
           provider={PROVIDER_GOOGLE}
           initialRegion={{
@@ -16,7 +16,7 @@ export default function SearchScreen() {
           }}
           showsUserLocation={true}
           showsMyLocationButton={true}
-        />
+        /> */}
       </View>
     </View>
   );
