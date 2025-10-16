@@ -8,21 +8,22 @@ module.exports = {
       colors: {
         // Custom theme colors
         primary: {
-          50: '#edf6f9',
-          100: '#d1e7dd',
-          200: '#a3cfbb',
-          300: '#83c5be',
-          400: '#5cbdb2',
-          500: '#83c5be',
-          600: '#006d77',
-          700: '#005a61',
-          800: '#00474b',
-          900: '#003335',
+          50: '#FFCC00',   // theme-light
+          100: '#B13BFF',  // theme-accent
+          200: '#B13BFF',  // theme-accent
+          300: '#B13BFF',  // theme-accent
+          400: '#B13BFF',  // theme-accent
+          500: '#B13BFF',  // theme-accent
+          600: '#471396',  // theme-medium
+          700: '#471396',  // theme-medium
+          800: '#471396',  // theme-medium
+          900: '#090040',  // theme-dark
         },
         // Direct color mappings
-        'theme-dark': '#006d77',
-        'theme-medium': '#83c5be', 
-        'theme-light': '#edf6f9',
+        'theme-dark': '#090040',
+        'theme-medium': '#471396', 
+        'theme-accent': '#B13BFF',
+        'theme-light': '#FFCC00',
       },
     },
   },

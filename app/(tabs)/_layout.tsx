@@ -8,12 +8,12 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "#006d77", // theme-dark
-        tabBarInactiveTintColor: "#5cbdb2", // theme-medium
+        tabBarActiveTintColor: "#B13BFF", // theme-accent
+        tabBarInactiveTintColor: "#FFCC00", // theme-light
         tabBarStyle: {
-          backgroundColor: "#ffffff",
+          backgroundColor: "#090040", // theme-dark
           borderTopWidth: 1,
-          borderTopColor: "#e5e7eb", // gray-200
+          borderTopColor: "#471396", // theme-medium
           height: 60 + insets.bottom,
         },
         tabBarLabelStyle: {
@@ -23,7 +23,7 @@ export default function TabLayout() {
         headerShown: true,
         // headerTitle: "Infomovia",
         headerStyle: {
-          backgroundColor: "#006d77", // theme-dark
+          backgroundColor: "#090040", // theme-dark
         },
         headerTintColor: "#fff",
         headerTitleStyle: {

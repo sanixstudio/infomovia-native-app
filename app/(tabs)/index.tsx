@@ -1,4 +1,4 @@
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, Text } from "react-native";
 
 export default function HomeScreen() {
   return (
@@ -14,33 +14,6 @@ export default function HomeScreen() {
       <Text className="text-lg text-theme-medium mt-2">
         Welcome to Infomovia!
       </Text>
-      <View
-        style={{
-          width: 300,
-          height: 300,
-          backgroundColor: "#83c5be",
-          borderRadius: 150,
-          marginTop: 16,
-        }}
-      ></View>
-      <View
-        style={{
-          width: 300,
-          height: 300,
-          backgroundColor: "#006d77",
-          borderRadius: 150,
-          marginTop: 16,
-        }}
-      ></View>
-      <View
-        style={{
-          width: 300,
-          height: 300,
-          backgroundColor: "#83c5be",
-          borderRadius: 150,
-          marginTop: 16,
-        }}
-      ></View>
     </ScrollView>
   );
 }
