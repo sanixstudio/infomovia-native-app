@@ -83,7 +83,7 @@ export const PersonCard: React.FC<PersonCardProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    width: 120,
+    width: 160,
     marginRight: 12,
   },
   imageContainer: {
@@ -94,12 +94,12 @@ const styles = StyleSheet.create({
   },
   profile: {
     width: '100%',
-    height: 180,
+    height: 240,
     resizeMode: 'cover',
   },
   placeholder: {
     width: '100%',
-    height: 180,
+    height: 240,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f0f0f0',

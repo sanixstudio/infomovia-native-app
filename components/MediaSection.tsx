@@ -53,11 +53,15 @@ export const MediaSection: React.FC<MediaSectionProps> = ({
     }
   };
 
-  const getItemLayout = (_: any, index: number) => ({
-    length: type === 'person' ? 132 : 172, // width + margin
-    offset: (type === 'person' ? 132 : 172) * index,
-    index,
-  });
+  const getItemLayout = horizontal ? (_: any, index: number) => {
+    const itemWidth = 160; // All cards are medium size (160px)
+    const margin = 12;
+    return {
+      length: itemWidth + margin,
+      offset: (itemWidth + margin) * index,
+      index,
+    };
+  } : undefined;
 
   if (!data || data.length === 0) {
     return (
@@ -91,12 +95,15 @@ export const MediaSection: React.FC<MediaSectionProps> = ({
         keyExtractor={(item, index) => `${type}-${item.id}-${index}`}
         horizontal={horizontal}
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.listContainer}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={horizontal ? styles.listContainer : styles.verticalListContainer}
         getItemLayout={getItemLayout}
-        initialNumToRender={5}
-        maxToRenderPerBatch={10}
-        windowSize={10}
-        removeClippedSubviews={true}
+        initialNumToRender={horizontal ? 5 : 10}
+        maxToRenderPerBatch={horizontal ? 10 : 20}
+        windowSize={horizontal ? 10 : 20}
+        removeClippedSubviews={horizontal}
+        numColumns={horizontal ? undefined : 2}
+        columnWrapperStyle={horizontal ? undefined : styles.row}
       />
     </View>
   );
@@ -130,6 +137,14 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     paddingLeft: 16,
+  },
+  verticalListContainer: {
+    paddingHorizontal: 16,
+  },
+  row: {
+    justifyContent: 'space-between',
+    marginBottom: 20,
+    paddingHorizontal: 16,
   },
   emptyContainer: {
     alignItems: 'center',

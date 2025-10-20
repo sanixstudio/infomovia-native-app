@@ -1,11 +1,20 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import React from 'react';
-import { Alert, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { MediaSection } from '../../components/MediaSection';
-import { useTMDBData } from '../../hooks/useTMDBData';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import React from "react";
+import {
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { MediaSection } from "../../components/MediaSection";
+import { useTMDBData } from "../../hooks/useTMDBData";
 
 export default function HomeScreen() {
+  const router = useRouter();
+  
   const {
     popularMovies,
     topRatedMovies,
@@ -25,7 +34,7 @@ export default function HomeScreen() {
   } = useTMDBData();
 
   // Debug logging
-  console.log('HomeScreen Debug:', {
+  console.log("HomeScreen Debug:", {
     isLoading,
     error,
     popularMoviesLength: popularMovies.length,
@@ -38,19 +47,34 @@ export default function HomeScreen() {
 
   // Navigation is now handled by the card components directly
 
-  const handleViewAllPress = (type: string) => {
-    // TODO: Navigate to full list screen
-    Alert.alert('View All', `View all ${type}`);
+  const handleViewAllPress = (category: string) => {
+    // Map category names to route parameters
+    const categoryMap: { [key: string]: string } = {
+      'trending movies': 'trending',
+      'popular movies': 'popular',
+      'top rated movies': 'top-rated',
+      'now playing movies': 'now-playing',
+      'upcoming movies': 'upcoming',
+    };
+    
+    const routeCategory = categoryMap[category];
+    if (routeCategory) {
+      router.push(`/movies?category=${routeCategory}`);
+    }
   };
 
   if (error) {
     return (
-      <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
+      <SafeAreaView style={styles.safeArea} edges={["top", "left", "right"]}>
         <View style={styles.errorContainer}>
-          <MaterialCommunityIcons name="alert-circle" size={48} color="#FF6B35" />
+          <MaterialCommunityIcons
+            name="alert-circle"
+            size={48}
+            color="#FF6B35"
+          />
           <Text style={styles.errorTitle}>Something went wrong</Text>
           <Text style={styles.errorMessage}>
-            {typeof error === 'string' ? error : error.message}
+            {typeof error === "string" ? error : error.message}
           </Text>
         </View>
       </SafeAreaView>
@@ -60,18 +84,20 @@ export default function HomeScreen() {
   // Show loading state
   if (isLoading) {
     return (
-      <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
+      <SafeAreaView style={styles.safeArea} edges={["top", "left", "right"]}>
         <View style={styles.loadingContainer}>
           <MaterialCommunityIcons name="loading" size={48} color="#FF6B35" />
           <Text style={styles.loadingTitle}>Loading content...</Text>
-          <Text style={styles.loadingSubtitle}>Fetching the latest movies, TV shows, and celebrities</Text>
+          <Text style={styles.loadingSubtitle}>
+            Fetching the latest movies, TV shows, and celebrities
+          </Text>
         </View>
       </SafeAreaView>
     );
   }
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
+    <SafeAreaView style={styles.safeArea} edges={["top", "left", "right"]}>
       <ScrollView
         style={styles.container}
         showsVerticalScrollIndicator={false}
@@ -80,22 +106,20 @@ export default function HomeScreen() {
             refreshing={isLoading}
             onRefresh={refetchAll}
             tintColor="#FF6B35"
-            colors={['#FF6B35']}
+            colors={["#FF6B35"]}
           />
         }
       >
         {/* Header */}
         <View style={styles.header}>
           <Text style={styles.welcomeTitle}>Welcome to Infomovia!</Text>
-          <Text style={styles.welcomeSubtitle}>
-            Discover the latest movies, TV shows, and celebrities
-          </Text>
         </View>
 
         {/* Debug Info - Remove in production */}
         <View style={styles.debugContainer}>
           <Text style={styles.debugText}>
-            Debug: Movies: {popularMovies.length}, TV: {popularTvShows.length}, People: {popularPeople.length}
+            Debug: Movies: {popularMovies.length}, TV: {popularTvShows.length},
+            People: {popularPeople.length}
           </Text>
         </View>
 
@@ -105,7 +129,7 @@ export default function HomeScreen() {
             title="Trending Movies"
             data={trendingMovies}
             type="movie"
-            onViewAllPress={() => handleViewAllPress('trending movies')}
+            onViewAllPress={() => handleViewAllPress("trending movies")}
           />
         )}
 
@@ -115,7 +139,7 @@ export default function HomeScreen() {
             title="Now Playing"
             data={nowPlayingMovies}
             type="movie"
-            onViewAllPress={() => handleViewAllPress('now playing movies')}
+            onViewAllPress={() => handleViewAllPress("now playing movies")}
           />
         )}
 
@@ -125,7 +149,7 @@ export default function HomeScreen() {
             title="Popular Movies"
             data={popularMovies}
             type="movie"
-            onViewAllPress={() => handleViewAllPress('popular movies')}
+            onViewAllPress={() => handleViewAllPress("popular movies")}
           />
         )}
 
@@ -135,7 +159,7 @@ export default function HomeScreen() {
             title="Top Rated Movies"
             data={topRatedMovies}
             type="movie"
-            onViewAllPress={() => handleViewAllPress('top rated movies')}
+            onViewAllPress={() => handleViewAllPress("top rated movies")}
           />
         )}
 
@@ -145,7 +169,7 @@ export default function HomeScreen() {
             title="Upcoming Movies"
             data={upcomingMovies}
             type="movie"
-            onViewAllPress={() => handleViewAllPress('upcoming movies')}
+            onViewAllPress={() => handleViewAllPress("upcoming movies")}
           />
         )}
 
@@ -155,7 +179,7 @@ export default function HomeScreen() {
             title="Trending TV Shows"
             data={trendingTvShows}
             type="tv"
-            onViewAllPress={() => handleViewAllPress('trending tv shows')}
+            onViewAllPress={() => handleViewAllPress("trending tv shows")}
           />
         )}
 
@@ -165,7 +189,7 @@ export default function HomeScreen() {
             title="On The Air"
             data={onTheAirTvShows}
             type="tv"
-            onViewAllPress={() => handleViewAllPress('on the air tv shows')}
+            onViewAllPress={() => handleViewAllPress("on the air tv shows")}
           />
         )}
 
@@ -175,7 +199,7 @@ export default function HomeScreen() {
             title="Popular TV Shows"
             data={popularTvShows}
             type="tv"
-            onViewAllPress={() => handleViewAllPress('popular tv shows')}
+            onViewAllPress={() => handleViewAllPress("popular tv shows")}
           />
         )}
 
@@ -185,7 +209,7 @@ export default function HomeScreen() {
             title="Top Rated TV Shows"
             data={topRatedTvShows}
             type="tv"
-            onViewAllPress={() => handleViewAllPress('top rated tv shows')}
+            onViewAllPress={() => handleViewAllPress("top rated tv shows")}
           />
         )}
 
@@ -195,7 +219,7 @@ export default function HomeScreen() {
             title="Airing Today"
             data={airingTodayTvShows}
             type="tv"
-            onViewAllPress={() => handleViewAllPress('airing today tv shows')}
+            onViewAllPress={() => handleViewAllPress("airing today tv shows")}
           />
         )}
 
@@ -205,7 +229,7 @@ export default function HomeScreen() {
             title="Trending People"
             data={trendingPeople}
             type="person"
-            onViewAllPress={() => handleViewAllPress('trending people')}
+            onViewAllPress={() => handleViewAllPress("trending people")}
           />
         )}
 
@@ -215,28 +239,35 @@ export default function HomeScreen() {
             title="Popular People"
             data={popularPeople}
             type="person"
-            onViewAllPress={() => handleViewAllPress('popular people')}
+            onViewAllPress={() => handleViewAllPress("popular people")}
           />
         )}
 
         {/* Fallback content when no data */}
-        {popularMovies.length === 0 && popularTvShows.length === 0 && popularPeople.length === 0 && (
-          <View style={styles.fallbackContainer}>
-            <MaterialCommunityIcons name="movie-open" size={64} color="#666" />
-            <Text style={styles.fallbackTitle}>No content available</Text>
-            <Text style={styles.fallbackSubtitle}>
-              Make sure you have a valid TMDB API key configured
-            </Text>
-            <Text style={styles.fallbackText}>
-              Check the console for debug information
-            </Text>
-          </View>
-        )}
+        {popularMovies.length === 0 &&
+          popularTvShows.length === 0 &&
+          popularPeople.length === 0 && (
+            <View style={styles.fallbackContainer}>
+              <MaterialCommunityIcons
+                name="movie-open"
+                size={64}
+                color="#666"
+              />
+              <Text style={styles.fallbackTitle}>No content available</Text>
+              <Text style={styles.fallbackSubtitle}>
+                Make sure you have a valid TMDB API key configured
+              </Text>
+              <Text style={styles.fallbackText}>
+                Check the console for debug information
+              </Text>
+            </View>
+          )}
 
         {/* Footer */}
         <View style={styles.footer}>
           <Text style={styles.footerText}>
-            This product uses the TMDB API but is not endorsed or certified by TMDB.
+            This product uses the TMDB API but is not endorsed or certified by
+            TMDB.
           </Text>
         </View>
       </ScrollView>
@@ -247,7 +278,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#FFCC00', // theme-light color
+    backgroundColor: "#FFCC00", // theme-light color
   },
   container: {
     flex: 1,
@@ -258,97 +289,97 @@ const styles = StyleSheet.create({
   },
   welcomeTitle: {
     fontSize: 28,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: "bold",
+    color: "#333",
     marginBottom: 8,
   },
   welcomeSubtitle: {
     fontSize: 16,
-    color: '#666',
+    color: "#666",
     lineHeight: 22,
   },
   errorContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     padding: 20,
   },
   errorTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: "bold",
+    color: "#333",
     marginTop: 16,
     marginBottom: 8,
   },
   errorMessage: {
     fontSize: 16,
-    color: '#666',
-    textAlign: 'center',
+    color: "#666",
+    textAlign: "center",
     lineHeight: 22,
   },
   footer: {
     padding: 20,
     paddingTop: 10,
-    alignItems: 'center',
+    alignItems: "center",
   },
   footerText: {
     fontSize: 12,
-    color: '#999',
-    textAlign: 'center',
+    color: "#999",
+    textAlign: "center",
     lineHeight: 16,
   },
   loadingContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     padding: 20,
   },
   loadingTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: "bold",
+    color: "#333",
     marginTop: 16,
     marginBottom: 8,
   },
   loadingSubtitle: {
     fontSize: 16,
-    color: '#666',
-    textAlign: 'center',
+    color: "#666",
+    textAlign: "center",
     lineHeight: 22,
   },
   debugContainer: {
-    backgroundColor: '#f0f0f0',
+    backgroundColor: "#f0f0f0",
     padding: 10,
     margin: 16,
     borderRadius: 8,
   },
   debugText: {
     fontSize: 12,
-    color: '#666',
-    textAlign: 'center',
+    color: "#666",
+    textAlign: "center",
   },
   fallbackContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingVertical: 60,
     paddingHorizontal: 20,
   },
   fallbackTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: "bold",
+    color: "#333",
     marginTop: 16,
     marginBottom: 8,
   },
   fallbackSubtitle: {
     fontSize: 16,
-    color: '#666',
-    textAlign: 'center',
+    color: "#666",
+    textAlign: "center",
     marginBottom: 8,
   },
   fallbackText: {
     fontSize: 14,
-    color: '#999',
-    textAlign: 'center',
+    color: "#999",
+    textAlign: "center",
   },
 });

@@ -126,16 +126,17 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     marginBottom: 8,
+    aspectRatio: 2/3, // Consistent aspect ratio
   },
   profile: {
-    width: 100,
-    height: 120,
+    width: '100%',
+    height: '100%',
     borderRadius: 8,
     resizeMode: 'cover',
   },
   placeholder: {
-    width: 100,
-    height: 120,
+    width: '100%',
+    height: '100%',
     borderRadius: 8,
     backgroundColor: '#f0f0f0',
     justifyContent: 'center',
