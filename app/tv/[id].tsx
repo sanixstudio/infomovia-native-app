@@ -36,55 +36,18 @@ export default function TVShowDetailScreen() {
     refetch,
   } = useTVShowDetails(tvShowId);
 
-  const {
-    favoriteTvShows,
-    watchlistTvShows,
-    addFavoriteTvShow,
-    removeFavoriteTvShow,
-    addToWatchlistTvShow,
-    removeFromWatchlistTvShow,
-  } = useMovieStore();
-
+  const { favoriteTvShows, watchlistTvShows, addFavoriteTvShow, removeFavoriteTvShow, addToWatchlistTvShow, removeFromWatchlistTvShow } = useMovieStore();
+  
   const isFavorite = favoriteTvShows.some(fav => fav.id === tvShowId);
   const isInWatchlist = watchlistTvShows.some(watch => watch.id === tvShowId);
 
-  const handleFavoritePress = () => {
-    if (!tvShowDetails) return;
-    
-    if (isFavorite) {
-      removeFavoriteTvShow(tvShowId);
-    } else {
-      addFavoriteTvShow(tvShowDetails);
-    }
-  };
-
-  const handleWatchlistPress = () => {
-    if (!tvShowDetails) return;
-    
-    if (isInWatchlist) {
-      removeFromWatchlistTvShow(tvShowId);
-    } else {
-      addToWatchlistTvShow(tvShowDetails);
-    }
-  };
-
-  const handleBackPress = () => {
-    router.back();
-  };
-
+  const handleFavoritePress = () => tvShowDetails && (isFavorite ? removeFavoriteTvShow(tvShowId) : addFavoriteTvShow(tvShowDetails));
+  const handleWatchlistPress = () => tvShowDetails && (isInWatchlist ? removeFromWatchlistTvShow(tvShowId) : addToWatchlistTvShow(tvShowDetails));
+  const handleBackPress = () => router.back();
   const handleItemPress = (item: any) => {
-    // Person (cast/crew) objects have profile_path/known_for_department
-    if ('profile_path' in item || 'known_for_department' in item) {
-      router.push(`/person/${item.id}`);
-      return;
-    }
-    // Movies have title
-    if ('title' in item) {
-      router.push(`/movie/${item.id}`);
-      return;
-    }
-    // Fallback: treat as TV show
-    router.push(`/tv/${item.id}`);
+    if ('profile_path' in item || 'known_for_department' in item) router.push(`/person/${item.id}`);
+    else if ('title' in item) router.push(`/movie/${item.id}`);
+    else router.push(`/tv/${item.id}`);
   };
 
   if (error) {

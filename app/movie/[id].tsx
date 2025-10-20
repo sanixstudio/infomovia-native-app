@@ -36,55 +36,18 @@ export default function MovieDetailScreen() {
     refetch,
   } = useMovieDetails(movieId);
 
-  const {
-    favoriteMovies,
-    watchlistMovies,
-    addFavoriteMovie,
-    removeFavoriteMovie,
-    addToWatchlistMovie,
-    removeFromWatchlistMovie,
-  } = useMovieStore();
-
+  const { favoriteMovies, watchlistMovies, addFavoriteMovie, removeFavoriteMovie, addToWatchlistMovie, removeFromWatchlistMovie } = useMovieStore();
+  
   const isFavorite = favoriteMovies.some(fav => fav.id === movieId);
   const isInWatchlist = watchlistMovies.some(watch => watch.id === movieId);
 
-  const handleFavoritePress = () => {
-    if (!movieDetails) return;
-    
-    if (isFavorite) {
-      removeFavoriteMovie(movieId);
-    } else {
-      addFavoriteMovie(movieDetails);
-    }
-  };
-
-  const handleWatchlistPress = () => {
-    if (!movieDetails) return;
-    
-    if (isInWatchlist) {
-      removeFromWatchlistMovie(movieId);
-    } else {
-      addToWatchlistMovie(movieDetails);
-    }
-  };
-
-  const handleBackPress = () => {
-    router.back();
-  };
-
+  const handleFavoritePress = () => movieDetails && (isFavorite ? removeFavoriteMovie(movieId) : addFavoriteMovie(movieDetails));
+  const handleWatchlistPress = () => movieDetails && (isInWatchlist ? removeFromWatchlistMovie(movieId) : addToWatchlistMovie(movieDetails));
+  const handleBackPress = () => router.back();
   const handleItemPress = (item: any) => {
-    // Person (cast/crew) objects have profile_path/known_for_department
-    if ('profile_path' in item || 'known_for_department' in item) {
-      router.push(`/person/${item.id}`);
-      return;
-    }
-    // Movies have title
-    if ('title' in item) {
-      router.push(`/movie/${item.id}`);
-      return;
-    }
-    // Fallback: treat as TV show
-    router.push(`/tv/${item.id}`);
+    if ('profile_path' in item || 'known_for_department' in item) router.push(`/person/${item.id}`);
+    else if ('title' in item) router.push(`/movie/${item.id}`);
+    else router.push(`/tv/${item.id}`);
   };
 
   if (error) {

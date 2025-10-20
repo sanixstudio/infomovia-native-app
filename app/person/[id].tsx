@@ -35,34 +35,15 @@ export default function PersonDetailScreen() {
     refetch,
   } = usePersonDetails(personId);
 
-  const {
-    favoritePeople,
-    addFavoritePerson,
-    removeFavoritePerson,
-  } = useMovieStore();
-
+  const { favoritePeople, addFavoritePerson, removeFavoritePerson } = useMovieStore();
+  
   const isFavorite = favoritePeople.some(fav => fav.id === personId);
 
-  const handleFavoritePress = () => {
-    if (!personDetails) return;
-    
-    if (isFavorite) {
-      removeFavoritePerson(personId);
-    } else {
-      addFavoritePerson(personDetails);
-    }
-  };
-
-  const handleBackPress = () => {
-    router.back();
-  };
-
+  const handleFavoritePress = () => personDetails && (isFavorite ? removeFavoritePerson(personId) : addFavoritePerson(personDetails));
+  const handleBackPress = () => router.back();
   const handleItemPress = (item: any) => {
-    if ('title' in item) {
-      router.push(`/movie/${item.id}`);
-    } else if ('name' in item) {
-      router.push(`/tv/${item.id}`);
-    }
+    if ('title' in item) router.push(`/movie/${item.id}`);
+    else if ('name' in item) router.push(`/tv/${item.id}`);
   };
 
   if (error) {

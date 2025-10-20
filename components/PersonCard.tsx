@@ -18,31 +18,12 @@ export const PersonCard: React.FC<PersonCardProps> = ({
   showFavoriteButton = true,
 }) => {
   const router = useRouter();
-  const {
-    favoritePeople,
-    addFavoritePerson,
-    removeFavoritePerson,
-  } = useMovieStore();
-
+  const { favoritePeople, addFavoritePerson, removeFavoritePerson } = useMovieStore();
+  
   const isFavorite = favoritePeople.some(fav => fav.id === person.id);
 
-  const handleFavoritePress = () => {
-    if (isFavorite) {
-      removeFavoritePerson(person.id);
-    } else {
-      addFavoritePerson(person);
-    }
-  };
-
-  const handleCardPress = () => {
-    console.log('PersonCard pressed, onPress:', !!onPress, 'person id:', person.id);
-    if (onPress) {
-      onPress(person);
-    } else {
-      console.log('Navigating to:', `/person/${person.id}`);
-      router.push(`/person/${person.id}`);
-    }
-  };
+  const handleFavoritePress = () => isFavorite ? removeFavoritePerson(person.id) : addFavoritePerson(person);
+  const handleCardPress = () => onPress ? onPress(person) : router.push(`/person/${person.id}`);
 
   const profileUrl = getProfileUrl(person.profile_path, 'w185');
 
@@ -65,7 +46,7 @@ export const PersonCard: React.FC<PersonCardProps> = ({
         {/* Action buttons overlay */}
         {showFavoriteButton && (
           <TouchableOpacity
-            style={[styles.actionButton, isFavorite && styles.activeButton]}
+            style={styles.actionButton}
             onPress={handleFavoritePress}
           >
             <MaterialCommunityIcons

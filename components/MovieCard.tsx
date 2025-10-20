@@ -20,43 +20,14 @@ export const MovieCard: React.FC<MovieCardProps> = ({
   showWatchlistButton = true,
 }) => {
   const router = useRouter();
-  const {
-    favoriteMovies,
-    watchlistMovies,
-    addFavoriteMovie,
-    removeFavoriteMovie,
-    addToWatchlistMovie,
-    removeFromWatchlistMovie,
-  } = useMovieStore();
-
+  const { favoriteMovies, watchlistMovies, addFavoriteMovie, removeFavoriteMovie, addToWatchlistMovie, removeFromWatchlistMovie } = useMovieStore();
+  
   const isFavorite = favoriteMovies.some(fav => fav.id === movie.id);
   const isInWatchlist = watchlistMovies.some(watch => watch.id === movie.id);
 
-  const handleFavoritePress = () => {
-    if (isFavorite) {
-      removeFavoriteMovie(movie.id);
-    } else {
-      addFavoriteMovie(movie);
-    }
-  };
-
-  const handleWatchlistPress = () => {
-    if (isInWatchlist) {
-      removeFromWatchlistMovie(movie.id);
-    } else {
-      addToWatchlistMovie(movie);
-    }
-  };
-
-  const handleCardPress = () => {
-    console.log('MovieCard pressed, onPress:', !!onPress, 'movie id:', movie.id);
-    if (onPress) {
-      onPress(movie);
-    } else {
-      console.log('Navigating to:', `/movie/${movie.id}`);
-      router.push(`/movie/${movie.id}`);
-    }
-  };
+  const handleFavoritePress = () => isFavorite ? removeFavoriteMovie(movie.id) : addFavoriteMovie(movie);
+  const handleWatchlistPress = () => isInWatchlist ? removeFromWatchlistMovie(movie.id) : addToWatchlistMovie(movie);
+  const handleCardPress = () => onPress ? onPress(movie) : router.push(`/movie/${movie.id}`);
 
   const posterUrl = getPosterUrl(movie.poster_path, 'w342');
 
@@ -80,7 +51,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({
         <View style={styles.actionButtons}>
           {showFavoriteButton && (
             <TouchableOpacity
-              style={[styles.actionButton, isFavorite && styles.activeButton]}
+              style={styles.actionButton}
               onPress={handleFavoritePress}
             >
               <MaterialCommunityIcons
@@ -93,7 +64,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({
           
           {showWatchlistButton && (
             <TouchableOpacity
-              style={[styles.actionButton, isInWatchlist && styles.activeButton]}
+              style={styles.actionButton}
               onPress={handleWatchlistPress}
             >
               <MaterialCommunityIcons
@@ -164,9 +135,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  activeButton: {
-    backgroundColor: 'rgba(255, 107, 53, 0.9)',
   },
   content: {
     paddingTop: 8,

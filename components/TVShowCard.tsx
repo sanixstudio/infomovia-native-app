@@ -20,43 +20,14 @@ export const TVShowCard: React.FC<TVShowCardProps> = ({
   showWatchlistButton = true,
 }) => {
   const router = useRouter();
-  const {
-    favoriteTvShows,
-    watchlistTvShows,
-    addFavoriteTvShow,
-    removeFavoriteTvShow,
-    addToWatchlistTvShow,
-    removeFromWatchlistTvShow,
-  } = useMovieStore();
-
+  const { favoriteTvShows, watchlistTvShows, addFavoriteTvShow, removeFavoriteTvShow, addToWatchlistTvShow, removeFromWatchlistTvShow } = useMovieStore();
+  
   const isFavorite = favoriteTvShows.some(fav => fav.id === tvShow.id);
   const isInWatchlist = watchlistTvShows.some(watch => watch.id === tvShow.id);
 
-  const handleFavoritePress = () => {
-    if (isFavorite) {
-      removeFavoriteTvShow(tvShow.id);
-    } else {
-      addFavoriteTvShow(tvShow);
-    }
-  };
-
-  const handleWatchlistPress = () => {
-    if (isInWatchlist) {
-      removeFromWatchlistTvShow(tvShow.id);
-    } else {
-      addToWatchlistTvShow(tvShow);
-    }
-  };
-
-  const handleCardPress = () => {
-    console.log('TVShowCard pressed, onPress:', !!onPress, 'tvShow id:', tvShow.id);
-    if (onPress) {
-      onPress(tvShow);
-    } else {
-      console.log('Navigating to:', `/tv/${tvShow.id}`);
-      router.push(`/tv/${tvShow.id}`);
-    }
-  };
+  const handleFavoritePress = () => isFavorite ? removeFavoriteTvShow(tvShow.id) : addFavoriteTvShow(tvShow);
+  const handleWatchlistPress = () => isInWatchlist ? removeFromWatchlistTvShow(tvShow.id) : addToWatchlistTvShow(tvShow);
+  const handleCardPress = () => onPress ? onPress(tvShow) : router.push(`/tv/${tvShow.id}`);
 
   const posterUrl = getPosterUrl(tvShow.poster_path, 'w342');
 
@@ -80,7 +51,7 @@ export const TVShowCard: React.FC<TVShowCardProps> = ({
         <View style={styles.actionButtons}>
           {showFavoriteButton && (
             <TouchableOpacity
-              style={[styles.actionButton, isFavorite && styles.activeButton]}
+              style={styles.actionButton}
               onPress={handleFavoritePress}
             >
               <MaterialCommunityIcons
@@ -93,7 +64,7 @@ export const TVShowCard: React.FC<TVShowCardProps> = ({
           
           {showWatchlistButton && (
             <TouchableOpacity
-              style={[styles.actionButton, isInWatchlist && styles.activeButton]}
+              style={styles.actionButton}
               onPress={handleWatchlistPress}
             >
               <MaterialCommunityIcons
@@ -164,9 +135,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  activeButton: {
-    backgroundColor: 'rgba(255, 107, 53, 0.9)',
   },
   content: {
     paddingTop: 8,
