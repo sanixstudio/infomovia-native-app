@@ -1,10 +1,11 @@
 import { Link } from "expo-router";
 import { View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 // import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 
 export default function SearchScreen() {
   return (
-    <View className="flex-1 bg-white">
+    <SafeAreaView className="flex-1 bg-white" edges={['top', 'left', 'right']}>
       <View className="flex-1">
         {/* <MapView
           style={{ flex: 1 }}
@@ -20,6 +21,6 @@ export default function SearchScreen() {
         /> */}
         <Link href="/">Search</Link>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
