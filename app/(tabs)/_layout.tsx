@@ -1,78 +1,56 @@
-import { Ionicons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-export default function TabLayout() {
-  const insets = useSafeAreaInsets();
-
+export default function TabsLayout() {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: "#B13BFF", // theme-accent
-        tabBarInactiveTintColor: "#FFCC00", // theme-light
-        tabBarStyle: {
-          backgroundColor: "#090040", // theme-dark
-          borderTopWidth: 1,
-          borderTopColor: "#471396", // theme-medium
-          height: 60 + insets.bottom,
-        },
-        tabBarLabelStyle: {
-          fontSize: 12,
-          fontWeight: "500",
-        },
-        headerShown: true,
-        // headerTitle: "Infomovia",
-        headerStyle: {
-          backgroundColor: "#090040", // theme-dark
-        },
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-          fontWeight: "bold",
-        },
-      }}
-    >
+    <Tabs screenOptions={{ headerShown: false, tabBarStyle: { backgroundColor: '#FFCC00' } }}>
       <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
+          title: "HomeE",
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home" size={size} color={color} />
+            <MaterialCommunityIcons name="home" color={color} size={size} />
           ),
         }}
       />
       <Tabs.Screen
         name="saved"
         options={{
-          title: "Saved",
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="bookmark" size={size} color={color} />
+            <MaterialCommunityIcons name="heart" color={color} size={size} />
           ),
         }}
       />
       <Tabs.Screen
         name="search"
         options={{
-          title: "Search",
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="search" size={size} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="about"
-        options={{
-          title: "About",
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="information-circle" size={size} color={color} />
+            <MaterialCommunityIcons name="magnify" color={color} size={size} />
           ),
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
-          title: "Settings",
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="settings" size={size} color={color} />
+            <MaterialCommunityIcons name="cog" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="about"
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons
+              name="information-outline"
+              color={color}
+              size={size}
+            />
           ),
         }}
       />

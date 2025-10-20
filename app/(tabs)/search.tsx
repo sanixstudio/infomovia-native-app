@@ -1,3 +1,4 @@
+import { Link } from "expo-router";
 import { View } from "react-native";
 // import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 
@@ -17,6 +18,7 @@ export default function SearchScreen() {
           showsUserLocation={true}
           showsMyLocationButton={true}
         /> */}
+        <Link href="/">Home</Link>
       </View>
     </View>
   );
