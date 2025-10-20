@@ -110,7 +110,7 @@ export default function MovieDetailScreen() {
           {/* Action buttons */}
           <View style={styles.actionButtons}>
             <TouchableOpacity
-              style={[styles.actionButton, isFavorite && styles.activeButton]}
+              style={styles.actionButton}
               onPress={handleFavoritePress}
             >
               <MaterialCommunityIcons
@@ -121,7 +121,7 @@ export default function MovieDetailScreen() {
             </TouchableOpacity>
             
             <TouchableOpacity
-              style={[styles.actionButton, isInWatchlist && styles.activeButton]}
+              style={styles.actionButton}
               onPress={handleWatchlistPress}
             >
               <MaterialCommunityIcons
@@ -281,9 +281,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  activeButton: {
-    backgroundColor: 'rgba(255, 107, 53, 0.9)',
   },
   content: {
     flex: 1,

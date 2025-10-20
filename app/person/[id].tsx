@@ -105,7 +105,7 @@ export default function PersonDetailScreen() {
 
           {/* Action button */}
           <TouchableOpacity
-            style={[styles.actionButton, isFavorite && styles.activeButton]}
+            style={styles.actionButton}
             onPress={handleFavoritePress}
           >
             <MaterialCommunityIcons
@@ -291,9 +291,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  activeButton: {
-    backgroundColor: 'rgba(255, 107, 53, 0.9)',
   },
   content: {
     flex: 1,

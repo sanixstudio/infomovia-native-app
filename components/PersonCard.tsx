@@ -115,9 +115,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  activeButton: {
-    backgroundColor: 'rgba(255, 107, 53, 0.9)',
-  },
   content: {
     paddingTop: 8,
   },
