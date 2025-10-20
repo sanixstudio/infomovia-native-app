@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, RefreshControl, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Movie, Person, TVShow } from '../types/tmdb';
 import { MovieCard } from './MovieCard';
 import { PersonCard } from './PersonCard';
@@ -14,6 +14,8 @@ interface MediaSectionProps {
   onViewAllPress?: () => void;
   showViewAll?: boolean;
   horizontal?: boolean;
+  refreshing?: boolean;
+  onRefresh?: () => void;
 }
 
 export const MediaSection: React.FC<MediaSectionProps> = ({
@@ -24,6 +26,8 @@ export const MediaSection: React.FC<MediaSectionProps> = ({
   onViewAllPress,
   showViewAll = true,
   horizontal = true,
+  refreshing = false,
+  onRefresh,
 }) => {
   const renderItem = ({ item }: { item: Movie | TVShow | Person }) => {
     switch (type) {
@@ -104,6 +108,16 @@ export const MediaSection: React.FC<MediaSectionProps> = ({
         removeClippedSubviews={horizontal}
         numColumns={horizontal ? undefined : 2}
         columnWrapperStyle={horizontal ? undefined : styles.row}
+        refreshControl={
+          !horizontal && onRefresh ? (
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              tintColor="#FF6B35"
+              colors={['#FF6B35']}
+            />
+          ) : undefined
+        }
       />
     </View>
   );

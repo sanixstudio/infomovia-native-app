@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MediaSection } from '../../components/MediaSection';
 import { useTMDBData } from '../../hooks/useTMDBData';
@@ -157,24 +157,15 @@ export default function MoviesListScreen() {
       </View>
 
       {/* Movies List */}
-      <ScrollView
-        style={styles.content}
-        showsVerticalScrollIndicator={false}
-        refreshControl={
-          <RefreshControl
-            refreshing={isLoading}
-            onRefresh={refetchAll}
-            tintColor="#FF6B35"
-            colors={['#FF6B35']}
-          />
-        }
-      >
+      <View style={styles.content}>
         <MediaSection
           title={`${config.title} (${sortedMovies.length})`}
           data={sortedMovies}
           type="movie"
           showViewAll={false}
           horizontal={false}
+          refreshing={isLoading}
+          onRefresh={refetchAll}
         />
 
         {/* Footer */}
@@ -183,7 +174,7 @@ export default function MoviesListScreen() {
             Showing {sortedMovies.length} movies
           </Text>
         </View>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }

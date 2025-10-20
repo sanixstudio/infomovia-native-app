@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React, { useState } from 'react';
-import { RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MediaSection } from '../../components/MediaSection';
 import { useMovieStore } from '../../stores/movieStore';
@@ -67,14 +67,7 @@ export default function SavedScreen() {
       <ScrollView
         style={styles.content}
         showsVerticalScrollIndicator={false}
-        refreshControl={
-          <RefreshControl
-            refreshing={false}
-            onRefresh={() => {}}
-            tintColor="#FF6B35"
-            colors={['#FF6B35']}
-          />
-        }
+        contentContainerStyle={styles.scrollContent}
       >
         {activeTab === 'favorites' ? (
           <>
@@ -188,6 +181,9 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
+  },
+  scrollContent: {
+    paddingBottom: 20,
   },
   emptyContainer: {
     flex: 1,
