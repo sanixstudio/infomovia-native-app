@@ -1,4 +1,5 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Link, useRouter } from 'expo-router';
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { getPosterUrl } from '../config/tmdb';
@@ -18,6 +19,7 @@ export const TVShowCard: React.FC<TVShowCardProps> = ({
   showFavoriteButton = true,
   showWatchlistButton = true,
 }) => {
+  const router = useRouter();
   const {
     isFavoriteTvShow,
     isInWatchlistTvShow,
@@ -46,14 +48,25 @@ export const TVShowCard: React.FC<TVShowCardProps> = ({
     }
   };
 
+  const handleCardPress = () => {
+    console.log('TVShowCard pressed, onPress:', !!onPress, 'tvShow id:', tvShow.id);
+    if (onPress) {
+      onPress(tvShow);
+    } else {
+      console.log('Navigating to:', `/tv/${tvShow.id}`);
+      router.push(`/tv/${tvShow.id}`);
+    }
+  };
+
   const posterUrl = getPosterUrl(tvShow.poster_path, 'w342');
 
   return (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={() => onPress?.(tvShow)}
-      activeOpacity={0.8}
-    >
+    <Link href={`/tv/${tvShow.id}`} asChild>
+      <TouchableOpacity
+        style={styles.container}
+        onPress={handleCardPress}
+        activeOpacity={0.8}
+      >
       <View style={styles.imageContainer}>
         {posterUrl ? (
           <Image source={{ uri: posterUrl }} style={styles.poster} />
@@ -110,6 +123,7 @@ export const TVShowCard: React.FC<TVShowCardProps> = ({
         </View>
       </View>
     </TouchableOpacity>
+    </Link>
   );
 };
 

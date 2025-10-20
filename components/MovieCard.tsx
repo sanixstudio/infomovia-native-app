@@ -1,4 +1,5 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Link, useRouter } from 'expo-router';
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { getPosterUrl } from '../config/tmdb';
@@ -18,6 +19,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({
   showFavoriteButton = true,
   showWatchlistButton = true,
 }) => {
+  const router = useRouter();
   const {
     isFavoriteMovie,
     isInWatchlistMovie,
@@ -46,14 +48,25 @@ export const MovieCard: React.FC<MovieCardProps> = ({
     }
   };
 
+  const handleCardPress = () => {
+    console.log('MovieCard pressed, onPress:', !!onPress, 'movie id:', movie.id);
+    if (onPress) {
+      onPress(movie);
+    } else {
+      console.log('Navigating to:', `/movie/${movie.id}`);
+      router.push(`/movie/${movie.id}`);
+    }
+  };
+
   const posterUrl = getPosterUrl(movie.poster_path, 'w342');
 
   return (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={() => onPress?.(movie)}
-      activeOpacity={0.8}
-    >
+    <Link href={`/movie/${movie.id}`} asChild>
+      <TouchableOpacity
+        style={styles.container}
+        onPress={handleCardPress}
+        activeOpacity={0.8}
+      >
       <View style={styles.imageContainer}>
         {posterUrl ? (
           <Image source={{ uri: posterUrl }} style={styles.poster} />
@@ -110,6 +123,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({
         </View>
       </View>
     </TouchableOpacity>
+    </Link>
   );
 };
 

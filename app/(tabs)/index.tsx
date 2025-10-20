@@ -4,7 +4,6 @@ import { Alert, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MediaSection } from '../../components/MediaSection';
 import { useTMDBData } from '../../hooks/useTMDBData';
-import { Movie, Person, TVShow } from '../../types/tmdb';
 
 export default function HomeScreen() {
   const {
@@ -37,10 +36,7 @@ export default function HomeScreen() {
     trendingPeopleLength: trendingPeople.length,
   });
 
-  const handleItemPress = (item: Movie | TVShow | Person) => {
-    // TODO: Navigate to detail screen
-    Alert.alert('Item Selected', `You selected: ${'title' in item ? item.title : 'name' in item ? item.name : 'Unknown'}`);
-  };
+  // Navigation is now handled by the card components directly
 
   const handleViewAllPress = (type: string) => {
     // TODO: Navigate to full list screen
@@ -109,7 +105,6 @@ export default function HomeScreen() {
             title="Trending Movies"
             data={trendingMovies}
             type="movie"
-            onItemPress={handleItemPress}
             onViewAllPress={() => handleViewAllPress('trending movies')}
           />
         )}
@@ -120,7 +115,6 @@ export default function HomeScreen() {
             title="Now Playing"
             data={nowPlayingMovies}
             type="movie"
-            onItemPress={handleItemPress}
             onViewAllPress={() => handleViewAllPress('now playing movies')}
           />
         )}
@@ -131,7 +125,6 @@ export default function HomeScreen() {
             title="Popular Movies"
             data={popularMovies}
             type="movie"
-            onItemPress={handleItemPress}
             onViewAllPress={() => handleViewAllPress('popular movies')}
           />
         )}
@@ -142,7 +135,6 @@ export default function HomeScreen() {
             title="Top Rated Movies"
             data={topRatedMovies}
             type="movie"
-            onItemPress={handleItemPress}
             onViewAllPress={() => handleViewAllPress('top rated movies')}
           />
         )}
@@ -153,7 +145,6 @@ export default function HomeScreen() {
             title="Upcoming Movies"
             data={upcomingMovies}
             type="movie"
-            onItemPress={handleItemPress}
             onViewAllPress={() => handleViewAllPress('upcoming movies')}
           />
         )}
@@ -164,7 +155,6 @@ export default function HomeScreen() {
             title="Trending TV Shows"
             data={trendingTvShows}
             type="tv"
-            onItemPress={handleItemPress}
             onViewAllPress={() => handleViewAllPress('trending tv shows')}
           />
         )}
@@ -175,7 +165,6 @@ export default function HomeScreen() {
             title="On The Air"
             data={onTheAirTvShows}
             type="tv"
-            onItemPress={handleItemPress}
             onViewAllPress={() => handleViewAllPress('on the air tv shows')}
           />
         )}
@@ -186,7 +175,6 @@ export default function HomeScreen() {
             title="Popular TV Shows"
             data={popularTvShows}
             type="tv"
-            onItemPress={handleItemPress}
             onViewAllPress={() => handleViewAllPress('popular tv shows')}
           />
         )}
@@ -197,7 +185,6 @@ export default function HomeScreen() {
             title="Top Rated TV Shows"
             data={topRatedTvShows}
             type="tv"
-            onItemPress={handleItemPress}
             onViewAllPress={() => handleViewAllPress('top rated tv shows')}
           />
         )}
@@ -208,7 +195,6 @@ export default function HomeScreen() {
             title="Airing Today"
             data={airingTodayTvShows}
             type="tv"
-            onItemPress={handleItemPress}
             onViewAllPress={() => handleViewAllPress('airing today tv shows')}
           />
         )}
@@ -219,7 +205,6 @@ export default function HomeScreen() {
             title="Trending People"
             data={trendingPeople}
             type="person"
-            onItemPress={handleItemPress}
             onViewAllPress={() => handleViewAllPress('trending people')}
           />
         )}
@@ -230,7 +215,6 @@ export default function HomeScreen() {
             title="Popular People"
             data={popularPeople}
             type="person"
-            onItemPress={handleItemPress}
             onViewAllPress={() => handleViewAllPress('popular people')}
           />
         )}

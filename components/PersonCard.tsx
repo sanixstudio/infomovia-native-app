@@ -1,4 +1,5 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Link, useRouter } from 'expo-router';
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { getProfileUrl } from '../config/tmdb';
@@ -16,6 +17,7 @@ export const PersonCard: React.FC<PersonCardProps> = ({
   onPress,
   showFavoriteButton = true,
 }) => {
+  const router = useRouter();
   const {
     isFavoritePerson,
     addFavoritePerson,
@@ -32,14 +34,25 @@ export const PersonCard: React.FC<PersonCardProps> = ({
     }
   };
 
+  const handleCardPress = () => {
+    console.log('PersonCard pressed, onPress:', !!onPress, 'person id:', person.id);
+    if (onPress) {
+      onPress(person);
+    } else {
+      console.log('Navigating to:', `/person/${person.id}`);
+      router.push(`/person/${person.id}`);
+    }
+  };
+
   const profileUrl = getProfileUrl(person.profile_path, 'w185');
 
   return (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={() => onPress?.(person)}
-      activeOpacity={0.8}
-    >
+    <Link href={`/person/${person.id}`} asChild>
+      <TouchableOpacity
+        style={styles.container}
+        onPress={handleCardPress}
+        activeOpacity={0.8}
+      >
       <View style={styles.imageContainer}>
         {profileUrl ? (
           <Image source={{ uri: profileUrl }} style={styles.profile} />
@@ -83,6 +96,7 @@ export const PersonCard: React.FC<PersonCardProps> = ({
         </View>
       </View>
     </TouchableOpacity>
+    </Link>
   );
 };
 
