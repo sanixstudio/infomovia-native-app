@@ -88,7 +88,7 @@ export const CastCrewList: React.FC<CastCrewListProps> = ({
       <FlatList
         data={displayData}
         renderItem={renderItem}
-        keyExtractor={(item) => `${type}-${item.id}-${item.order || 0}`}
+        keyExtractor={(item, index) => `${type}-${item.id}-${index}`}
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.listContainer}

@@ -134,35 +134,50 @@ export const useMovieStore = create<MovieState>()(
       setTrendingPeople: (people) => set({ trendingPeople: people }),
       
       // Favorites actions
-      addFavoriteMovie: (movie) => set((state) => ({
-        favoriteMovies: [...state.favoriteMovies, movie]
-      })),
+      addFavoriteMovie: (movie) => set((state) => {
+        if (state.favoriteMovies.some(fav => fav.id === movie.id)) {
+          return state; // Already exists, don't add
+        }
+        return { favoriteMovies: [...state.favoriteMovies, movie] };
+      }),
       removeFavoriteMovie: (movieId) => set((state) => ({
         favoriteMovies: state.favoriteMovies.filter(movie => movie.id !== movieId)
       })),
-      addFavoriteTvShow: (show) => set((state) => ({
-        favoriteTvShows: [...state.favoriteTvShows, show]
-      })),
+      addFavoriteTvShow: (show) => set((state) => {
+        if (state.favoriteTvShows.some(fav => fav.id === show.id)) {
+          return state; // Already exists, don't add
+        }
+        return { favoriteTvShows: [...state.favoriteTvShows, show] };
+      }),
       removeFavoriteTvShow: (showId) => set((state) => ({
         favoriteTvShows: state.favoriteTvShows.filter(show => show.id !== showId)
       })),
-      addFavoritePerson: (person) => set((state) => ({
-        favoritePeople: [...state.favoritePeople, person]
-      })),
+      addFavoritePerson: (person) => set((state) => {
+        if (state.favoritePeople.some(fav => fav.id === person.id)) {
+          return state; // Already exists, don't add
+        }
+        return { favoritePeople: [...state.favoritePeople, person] };
+      }),
       removeFavoritePerson: (personId) => set((state) => ({
         favoritePeople: state.favoritePeople.filter(person => person.id !== personId)
       })),
       
       // Watchlist actions
-      addToWatchlistMovie: (movie) => set((state) => ({
-        watchlistMovies: [...state.watchlistMovies, movie]
-      })),
+      addToWatchlistMovie: (movie) => set((state) => {
+        if (state.watchlistMovies.some(watch => watch.id === movie.id)) {
+          return state; // Already exists, don't add
+        }
+        return { watchlistMovies: [...state.watchlistMovies, movie] };
+      }),
       removeFromWatchlistMovie: (movieId) => set((state) => ({
         watchlistMovies: state.watchlistMovies.filter(movie => movie.id !== movieId)
       })),
-      addToWatchlistTvShow: (show) => set((state) => ({
-        watchlistTvShows: [...state.watchlistTvShows, show]
-      })),
+      addToWatchlistTvShow: (show) => set((state) => {
+        if (state.watchlistTvShows.some(watch => watch.id === show.id)) {
+          return state; // Already exists, don't add
+        }
+        return { watchlistTvShows: [...state.watchlistTvShows, show] };
+      }),
       removeFromWatchlistTvShow: (showId) => set((state) => ({
         watchlistTvShows: state.watchlistTvShows.filter(show => show.id !== showId)
       })),

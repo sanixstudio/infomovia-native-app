@@ -37,16 +37,16 @@ export default function TVShowDetailScreen() {
   } = useTVShowDetails(tvShowId);
 
   const {
-    isFavoriteTvShow,
-    isInWatchlistTvShow,
+    favoriteTvShows,
+    watchlistTvShows,
     addFavoriteTvShow,
     removeFavoriteTvShow,
     addToWatchlistTvShow,
     removeFromWatchlistTvShow,
   } = useMovieStore();
 
-  const isFavorite = isFavoriteTvShow(tvShowId);
-  const isInWatchlist = isInWatchlistTvShow(tvShowId);
+  const isFavorite = favoriteTvShows.some(fav => fav.id === tvShowId);
+  const isInWatchlist = watchlistTvShows.some(watch => watch.id === tvShowId);
 
   const handleFavoritePress = () => {
     if (!tvShowDetails) return;
@@ -73,11 +73,18 @@ export default function TVShowDetailScreen() {
   };
 
   const handleItemPress = (item: any) => {
+    // Person (cast/crew) objects have profile_path/known_for_department
+    if ('profile_path' in item || 'known_for_department' in item) {
+      router.push(`/person/${item.id}`);
+      return;
+    }
+    // Movies have title
     if ('title' in item) {
       router.push(`/movie/${item.id}`);
-    } else if ('name' in item) {
-      router.push(`/tv/${item.id}`);
+      return;
     }
+    // Fallback: treat as TV show
+    router.push(`/tv/${item.id}`);
   };
 
   if (error) {

@@ -21,16 +21,16 @@ export const MovieCard: React.FC<MovieCardProps> = ({
 }) => {
   const router = useRouter();
   const {
-    isFavoriteMovie,
-    isInWatchlistMovie,
+    favoriteMovies,
+    watchlistMovies,
     addFavoriteMovie,
     removeFavoriteMovie,
     addToWatchlistMovie,
     removeFromWatchlistMovie,
   } = useMovieStore();
 
-  const isFavorite = isFavoriteMovie(movie.id);
-  const isInWatchlist = isInWatchlistMovie(movie.id);
+  const isFavorite = favoriteMovies.some(fav => fav.id === movie.id);
+  const isInWatchlist = watchlistMovies.some(watch => watch.id === movie.id);
 
   const handleFavoritePress = () => {
     if (isFavorite) {

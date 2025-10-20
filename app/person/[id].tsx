@@ -36,12 +36,12 @@ export default function PersonDetailScreen() {
   } = usePersonDetails(personId);
 
   const {
-    isFavoritePerson,
+    favoritePeople,
     addFavoritePerson,
     removeFavoritePerson,
   } = useMovieStore();
 
-  const isFavorite = isFavoritePerson(personId);
+  const isFavorite = favoritePeople.some(fav => fav.id === personId);
 
   const handleFavoritePress = () => {
     if (!personDetails) return;

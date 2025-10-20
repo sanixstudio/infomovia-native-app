@@ -19,12 +19,12 @@ export const PersonCard: React.FC<PersonCardProps> = ({
 }) => {
   const router = useRouter();
   const {
-    isFavoritePerson,
+    favoritePeople,
     addFavoritePerson,
     removeFavoritePerson,
   } = useMovieStore();
 
-  const isFavorite = isFavoritePerson(person.id);
+  const isFavorite = favoritePeople.some(fav => fav.id === person.id);
 
   const handleFavoritePress = () => {
     if (isFavorite) {

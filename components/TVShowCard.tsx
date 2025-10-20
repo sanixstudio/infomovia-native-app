@@ -21,16 +21,16 @@ export const TVShowCard: React.FC<TVShowCardProps> = ({
 }) => {
   const router = useRouter();
   const {
-    isFavoriteTvShow,
-    isInWatchlistTvShow,
+    favoriteTvShows,
+    watchlistTvShows,
     addFavoriteTvShow,
     removeFavoriteTvShow,
     addToWatchlistTvShow,
     removeFromWatchlistTvShow,
   } = useMovieStore();
 
-  const isFavorite = isFavoriteTvShow(tvShow.id);
-  const isInWatchlist = isInWatchlistTvShow(tvShow.id);
+  const isFavorite = favoriteTvShows.some(fav => fav.id === tvShow.id);
+  const isInWatchlist = watchlistTvShows.some(watch => watch.id === tvShow.id);
 
   const handleFavoritePress = () => {
     if (isFavorite) {

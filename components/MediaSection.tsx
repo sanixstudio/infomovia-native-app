@@ -88,7 +88,7 @@ export const MediaSection: React.FC<MediaSectionProps> = ({
       <FlatList
         data={data}
         renderItem={renderItem}
-        keyExtractor={(item) => `${type}-${item.id}`}
+        keyExtractor={(item, index) => `${type}-${item.id}-${index}`}
         horizontal={horizontal}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.listContainer}
