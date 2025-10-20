@@ -18,7 +18,7 @@ export default function SearchScreen() {
           showsUserLocation={true}
           showsMyLocationButton={true}
         /> */}
-        <Link href="/">Home</Link>
+        <Link href="/">Search</Link>
       </View>
     </View>
   );
